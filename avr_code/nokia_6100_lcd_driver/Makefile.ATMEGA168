@@ -1,0 +1,39 @@
+SUPPORT = nokialcd_driver.o nokialcd_scroll.o nokialcd_font.o sysconfig-atmega168.o
+
+CC      = avr-gcc
+OBJCOPY = avr-objcopy
+AVRDUDE = avrdude -q -q -c usbtiny -p m168
+
+MCU_TARGET = atmega168
+DEFS       = -DEPSON
+CFLAGS     = -std=gnu99 -g -Wall -Os -mmcu=$(MCU_TARGET) $(DEFS)
+LDFLAGS    = -Wl
+
+all: demo_testpattern.hex demo_scroll.hex
+
+fuse:
+	$(AVRDUDE) -U lfuse:w:0xe2:m -U hfuse:w:0xd7:m
+
+flash-testpattern: demo_testpattern.hex
+	$(AVRDUDE) -U flash:w:$< 
+
+flash-scroll: demo_scroll.hex
+	$(AVRDUDE) -U flash:w:$< 
+
+clean:
+	rm -f *.o *.cof *.elf *.hex *.bin *.srec
+
+%.elf: %.o $(SUPPORT)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+%.hex: %.elf
+	$(OBJCOPY) -j .text -j .data -O ihex $< $@
+
+%.srec: %.elf
+	$(OBJCOPY) -j .text -j .data -O srec $< $@
+
+%.bin: %.elf
+	$(OBJCOPY) -j .text -j .data -O binary $< $@
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
