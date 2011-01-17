@@ -1,0 +1,1207 @@
+
+nokia_lcd_test.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000438  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  00000438  000004cc  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000202  0080006a  0080006a  000004d6  2**0
+                  ALLOC
+  3 .debug_aranges 00000060  00000000  00000000  000004d6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 00000186  00000000  00000000  00000536  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000067e  00000000  00000000  000006bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000002ae  00000000  00000000  00000d3a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000079c  00000000  00000000  00000fe8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000110  00000000  00000000  00001784  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000001cb  00000000  00000000  00001894  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000017a  00000000  00000000  00001a5f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000048  00000000  00000000  00001bd9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e8 e3       	ldi	r30, 0x38	; 56
+  68:	f4 e0       	ldi	r31, 0x04	; 4
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	aa 36       	cpi	r26, 0x6A	; 106
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	12 e0       	ldi	r17, 0x02	; 2
+  78:	aa e6       	ldi	r26, 0x6A	; 106
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	ac 36       	cpi	r26, 0x6C	; 108
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 49 00 	call	0x92	; 0x92 <main>
+  8a:	0c 94 1a 02 	jmp	0x434	; 0x434 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <main>:
+unsigned char df_end;
+unsigned char df_cr;
+int index = 0;
+
+int main(void)
+{
+  92:	cf 93       	push	r28
+  94:	df 93       	push	r29
+	
+   UART_init();
+  96:	0e 94 09 02 	call	0x412	; 0x412 <UART_init>
+   spi_init();
+  9a:	0e 94 dd 00 	call	0x1ba	; 0x1ba <spi_init>
+   delay_ms(100);	
+  9e:	84 e6       	ldi	r24, 0x64	; 100
+  a0:	90 e0       	ldi	r25, 0x00	; 0
+  a2:	0e 94 b4 01 	call	0x368	; 0x368 <delay_ms>
+   LCD_init ();
+  a6:	0e 94 1f 01 	call	0x23e	; 0x23e <LCD_init>
+   delay_ms(100);
+  aa:	84 e6       	ldi	r24, 0x64	; 100
+  ac:	90 e0       	ldi	r25, 0x00	; 0
+  ae:	0e 94 b4 01 	call	0x368	; 0x368 <delay_ms>
+   LCD_clear ();
+  b2:	0e 94 01 01 	call	0x202	; 0x202 <LCD_clear>
+
+   // send the init frame
+   //UART_transmit(0xFB);
+   UART_transmit(0xFB);
+  b6:	8b ef       	ldi	r24, 0xFB	; 251
+  b8:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+   UART_transmit(0x0A);
+  bc:	8a e0       	ldi	r24, 0x0A	; 10
+  be:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+   UART_transmit(0x0A);
+  c2:	8a e0       	ldi	r24, 0x0A	; 10
+  c4:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+   UART_transmit(0x0A);
+  c8:	8a e0       	ldi	r24, 0x0A	; 10
+  ca:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+   UART_transmit(0x0D); 
+  ce:	8d e0       	ldi	r24, 0x0D	; 13
+  d0:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+
+   // upload the pixel array
+   done = 0;
+  d4:	10 92 6b 00 	sts	0x006B, r1
+  d8:	10 92 6a 00 	sts	0x006A, r1
+	  UART_transmit(0x0A);
+	  UART_transmit(0x0D);
+  
+      // break when the last byte (503) is received
+      if ((df_seq_msb == 0x01) && (df_seq_lsb == 247)) {
+        done = 1;
+  dc:	c1 e0       	ldi	r28, 0x01	; 1
+  de:	d0 e0       	ldi	r29, 0x00	; 0
+  e0:	41 c0       	rjmp	.+130    	; 0x164 <main+0xd2>
+
+   // upload the pixel array
+   done = 0;
+   while (done == 0) {
+      // receive data frame
+	  df_data = UART_receive();
+  e2:	0e 94 16 02 	call	0x42c	; 0x42c <UART_receive>
+  e6:	80 93 69 02 	sts	0x0269, r24
+      df_seq_msb = UART_receive();
+  ea:	0e 94 16 02 	call	0x42c	; 0x42c <UART_receive>
+  ee:	80 93 6a 02 	sts	0x026A, r24
+	  df_seq_lsb = UART_receive();
+  f2:	0e 94 16 02 	call	0x42c	; 0x42c <UART_receive>
+  f6:	80 93 6e 00 	sts	0x006E, r24
+	  df_end = UART_receive();
+  fa:	0e 94 16 02 	call	0x42c	; 0x42c <UART_receive>
+  fe:	80 93 6f 00 	sts	0x006F, r24
+	  df_cr = UART_receive();
+ 102:	0e 94 16 02 	call	0x42c	; 0x42c <UART_receive>
+ 106:	80 93 70 00 	sts	0x0070, r24
+
+      // store into byte pixel array
+	  if (df_seq_msb == 0x01) {
+ 10a:	80 91 6a 02 	lds	r24, 0x026A
+ 10e:	e0 91 6e 00 	lds	r30, 0x006E
+ 112:	90 91 69 02 	lds	r25, 0x0269
+ 116:	81 30       	cpi	r24, 0x01	; 1
+ 118:	21 f4       	brne	.+8      	; 0x122 <main+0x90>
+		byte_pixel[256 + df_seq_lsb] = df_data; 
+ 11a:	f0 e0       	ldi	r31, 0x00	; 0
+ 11c:	ef 58       	subi	r30, 0x8F	; 143
+ 11e:	fe 4f       	sbci	r31, 0xFE	; 254
+ 120:	03 c0       	rjmp	.+6      	; 0x128 <main+0x96>
+	  }
+	  else {
+        byte_pixel[df_seq_lsb] = df_data;
+ 122:	f0 e0       	ldi	r31, 0x00	; 0
+ 124:	ef 58       	subi	r30, 0x8F	; 143
+ 126:	ff 4f       	sbci	r31, 0xFF	; 255
+ 128:	90 83       	st	Z, r25
+	  }
+      
+	  // send the ack
+	  UART_transmit(0xFA);
+ 12a:	8a ef       	ldi	r24, 0xFA	; 250
+ 12c:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+	  UART_transmit(df_seq_msb);
+ 130:	80 91 6a 02 	lds	r24, 0x026A
+ 134:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+	  UART_transmit(df_seq_lsb);
+ 138:	80 91 6e 00 	lds	r24, 0x006E
+ 13c:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+	  UART_transmit(0x0A);
+ 140:	8a e0       	ldi	r24, 0x0A	; 10
+ 142:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+	  UART_transmit(0x0D);
+ 146:	8d e0       	ldi	r24, 0x0D	; 13
+ 148:	0e 94 12 02 	call	0x424	; 0x424 <UART_transmit>
+  
+      // break when the last byte (503) is received
+      if ((df_seq_msb == 0x01) && (df_seq_lsb == 247)) {
+ 14c:	80 91 6a 02 	lds	r24, 0x026A
+ 150:	81 30       	cpi	r24, 0x01	; 1
+ 152:	41 f4       	brne	.+16     	; 0x164 <main+0xd2>
+ 154:	80 91 6e 00 	lds	r24, 0x006E
+ 158:	87 3f       	cpi	r24, 0xF7	; 247
+ 15a:	21 f4       	brne	.+8      	; 0x164 <main+0xd2>
+        done = 1;
+ 15c:	d0 93 6b 00 	sts	0x006B, r29
+ 160:	c0 93 6a 00 	sts	0x006A, r28
+   UART_transmit(0x0A);
+   UART_transmit(0x0D); 
+
+   // upload the pixel array
+   done = 0;
+   while (done == 0) {
+ 164:	80 91 6a 00 	lds	r24, 0x006A
+ 168:	90 91 6b 00 	lds	r25, 0x006B
+ 16c:	89 2b       	or	r24, r25
+ 16e:	09 f4       	brne	.+2      	; 0x172 <main+0xe0>
+ 170:	b8 cf       	rjmp	.-144    	; 0xe2 <main+0x50>
+        done = 1;
+	  }
+   }
+
+   // set the cursor
+   LCD_gotoXY(0,0);
+ 172:	80 e0       	ldi	r24, 0x00	; 0
+ 174:	60 e0       	ldi	r22, 0x00	; 0
+ 176:	0e 94 f2 00 	call	0x1e4	; 0x1e4 <LCD_gotoXY>
+   // write byte_pixel by byte_pixel
+   for (index = 0; index < 504; index++) {
+ 17a:	10 92 6d 00 	sts	0x006D, r1
+ 17e:	10 92 6c 00 	sts	0x006C, r1
+ 182:	0e c0       	rjmp	.+28     	; 0x1a0 <main+0x10e>
+      LCD_writeData(byte_pixel[index]);
+ 184:	ef 58       	subi	r30, 0x8F	; 143
+ 186:	ff 4f       	sbci	r31, 0xFF	; 255
+ 188:	80 81       	ld	r24, Z
+ 18a:	0e 94 eb 00 	call	0x1d6	; 0x1d6 <LCD_writeData>
+   }
+
+   // set the cursor
+   LCD_gotoXY(0,0);
+   // write byte_pixel by byte_pixel
+   for (index = 0; index < 504; index++) {
+ 18e:	80 91 6c 00 	lds	r24, 0x006C
+ 192:	90 91 6d 00 	lds	r25, 0x006D
+ 196:	01 96       	adiw	r24, 0x01	; 1
+ 198:	90 93 6d 00 	sts	0x006D, r25
+ 19c:	80 93 6c 00 	sts	0x006C, r24
+ 1a0:	e0 91 6c 00 	lds	r30, 0x006C
+ 1a4:	f0 91 6d 00 	lds	r31, 0x006D
+ 1a8:	81 e0       	ldi	r24, 0x01	; 1
+ 1aa:	e8 3f       	cpi	r30, 0xF8	; 248
+ 1ac:	f8 07       	cpc	r31, r24
+ 1ae:	54 f3       	brlt	.-44     	; 0x184 <main+0xf2>
+   LCD_writeChar (0x6D);
+   LCD_writeChar (0x69);
+   LCD_writeChar (0x74);
+   LCD_writeChar (0x21);
+*/
+}
+ 1b0:	80 e0       	ldi	r24, 0x00	; 0
+ 1b2:	90 e0       	ldi	r25, 0x00	; 0
+ 1b4:	df 91       	pop	r29
+ 1b6:	cf 91       	pop	r28
+ 1b8:	08 95       	ret
+
+000001ba <spi_init>:
+//SPI initialize
+//clock rate: 250000hz
+void spi_init(void)
+{
+ //SPCR = 0x58; //setup SPI (for FCPU of 1Mhz)
+ SPCR = 0x5A;  // setup SPI (for FCPU of 8Mhz)
+ 1ba:	8a e5       	ldi	r24, 0x5A	; 90
+ 1bc:	8d b9       	out	0x0d, r24	; 13
+ SPSR = SPSR | 0x01;  // setting SPI2X
+ 1be:	70 9a       	sbi	0x0e, 0	; 14
+ DDRB = 0xFF; // MOSI, SCK and SS out, all others in
+ 1c0:	8f ef       	ldi	r24, 0xFF	; 255
+ 1c2:	87 bb       	out	0x17, r24	; 23
+ PORTB = 0xFF;
+ 1c4:	88 bb       	out	0x18, r24	; 24
+}
+ 1c6:	08 95       	ret
+
+000001c8 <LCD_writeCommand>:
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 1c8:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 1ca:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 1cc:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 1ce:	77 9b       	sbis	0x0e, 7	; 14
+ 1d0:	fe cf       	rjmp	.-4      	; 0x1ce <LCD_writeCommand+0x6>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 1d2:	c4 9a       	sbi	0x18, 4	; 24
+}
+ 1d4:	08 95       	ret
+
+000001d6 <LCD_writeData>:
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 1d6:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 1d8:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 1da:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 1dc:	77 9b       	sbis	0x0e, 7	; 14
+ 1de:	fe cf       	rjmp	.-4      	; 0x1dc <LCD_writeData+0x6>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 1e0:	c4 9a       	sbi	0x18, 4	; 24
+}
+ 1e2:	08 95       	ret
+
+000001e4 <LCD_gotoXY>:
+  			   	  y -> range: 0 to 5
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_gotoXY ( unsigned char x, unsigned char y )
+{
+    LCD_writeCommand (0x80 | x);   //column
+ 1e4:	80 68       	ori	r24, 0x80	; 128
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 1e6:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 1e8:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 1ea:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 1ec:	77 9b       	sbis	0x0e, 7	; 14
+ 1ee:	fe cf       	rjmp	.-4      	; 0x1ec <LCD_gotoXY+0x8>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 1f0:	c4 9a       	sbi	0x18, 4	; 24
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_gotoXY ( unsigned char x, unsigned char y )
+{
+    LCD_writeCommand (0x80 | x);   //column
+	LCD_writeCommand (0x40 | y);   //row
+ 1f2:	60 64       	ori	r22, 0x40	; 64
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 1f4:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 1f6:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 1f8:	6f b9       	out	0x0f, r22	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 1fa:	77 9b       	sbis	0x0e, 7	; 14
+ 1fc:	fe cf       	rjmp	.-4      	; 0x1fa <LCD_gotoXY+0x16>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 1fe:	c4 9a       	sbi	0x18, 4	; 24
+--------------------------------------------------------------------------------------------------*/
+void LCD_gotoXY ( unsigned char x, unsigned char y )
+{
+    LCD_writeCommand (0x80 | x);   //column
+	LCD_writeCommand (0x40 | y);   //row
+}
+ 200:	08 95       	ret
+
+00000202 <LCD_clear>:
+--------------------------------------------------------------------------------------------------*/
+void LCD_clear ( void )
+{
+    int i,j;
+	
+	LCD_gotoXY (0,0);  	//start with (0,0) position
+ 202:	80 e0       	ldi	r24, 0x00	; 0
+ 204:	60 e0       	ldi	r22, 0x00	; 0
+ 206:	0e 94 f2 00 	call	0x1e4	; 0x1e4 <LCD_gotoXY>
+ 20a:	20 e0       	ldi	r18, 0x00	; 0
+ 20c:	30 e0       	ldi	r19, 0x00	; 0
+ 20e:	0f c0       	rjmp	.+30     	; 0x22e <LCD_clear+0x2c>
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 210:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 212:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 214:	1f b8       	out	0x0f, r1	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 216:	77 9b       	sbis	0x0e, 7	; 14
+ 218:	fe cf       	rjmp	.-4      	; 0x216 <LCD_clear+0x14>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 21a:	c4 9a       	sbi	0x18, 4	; 24
+    int i,j;
+	
+	LCD_gotoXY (0,0);  	//start with (0,0) position
+
+    for(i=0; i<8; i++)
+	  for(j=0; j<90; j++)
+ 21c:	01 96       	adiw	r24, 0x01	; 1
+ 21e:	8a 35       	cpi	r24, 0x5A	; 90
+ 220:	91 05       	cpc	r25, r1
+ 222:	b1 f7       	brne	.-20     	; 0x210 <LCD_clear+0xe>
+{
+    int i,j;
+	
+	LCD_gotoXY (0,0);  	//start with (0,0) position
+
+    for(i=0; i<8; i++)
+ 224:	2f 5f       	subi	r18, 0xFF	; 255
+ 226:	3f 4f       	sbci	r19, 0xFF	; 255
+ 228:	28 30       	cpi	r18, 0x08	; 8
+ 22a:	31 05       	cpc	r19, r1
+ 22c:	19 f0       	breq	.+6      	; 0x234 <LCD_clear+0x32>
+ 22e:	80 e0       	ldi	r24, 0x00	; 0
+ 230:	90 e0       	ldi	r25, 0x00	; 0
+ 232:	ee cf       	rjmp	.-36     	; 0x210 <LCD_clear+0xe>
+	  for(j=0; j<90; j++)
+	     LCD_writeData( 0x00 );
+   
+    LCD_gotoXY (0,0);	//bring the XY position back to (0,0)
+ 234:	80 e0       	ldi	r24, 0x00	; 0
+ 236:	60 e0       	ldi	r22, 0x00	; 0
+ 238:	0e 94 f2 00 	call	0x1e4	; 0x1e4 <LCD_gotoXY>
+      
+}
+ 23c:	08 95       	ret
+
+0000023e <LCD_init>:
+  Description  :  LCD controller initialization.
+  Argument(s)  :  None.
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_init ( void )
+{
+ 23e:	40 e0       	ldi	r20, 0x00	; 0
+ 240:	50 e0       	ldi	r21, 0x00	; 0
+ 242:	13 c0       	rjmp	.+38     	; 0x26a <LCD_init+0x2c>
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+      for(j=0;j<100;j++)
+	  {
+	    asm("nop");
+ 244:	00 00       	nop
+	    asm("nop");
+ 246:	00 00       	nop
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+      for(j=0;j<100;j++)
+ 248:	01 96       	adiw	r24, 0x01	; 1
+ 24a:	84 36       	cpi	r24, 0x64	; 100
+ 24c:	91 05       	cpc	r25, r1
+ 24e:	d1 f7       	brne	.-12     	; 0x244 <LCD_init+0x6>
+void delay_ms(int miliSec)  //for 8Mhz clock
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+ 250:	2f 5f       	subi	r18, 0xFF	; 255
+ 252:	3f 4f       	sbci	r19, 0xFF	; 255
+ 254:	28 30       	cpi	r18, 0x08	; 8
+ 256:	31 05       	cpc	r19, r1
+ 258:	19 f0       	breq	.+6      	; 0x260 <LCD_init+0x22>
+ 25a:	80 e0       	ldi	r24, 0x00	; 0
+ 25c:	90 e0       	ldi	r25, 0x00	; 0
+ 25e:	f2 cf       	rjmp	.-28     	; 0x244 <LCD_init+0x6>
+--------------------------------------------------------------------------------------------------*/
+void delay_ms(int miliSec)  //for 8Mhz clock
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+ 260:	4f 5f       	subi	r20, 0xFF	; 255
+ 262:	5f 4f       	sbci	r21, 0xFF	; 255
+ 264:	44 36       	cpi	r20, 0x64	; 100
+ 266:	51 05       	cpc	r21, r1
+ 268:	19 f0       	breq	.+6      	; 0x270 <LCD_init+0x32>
+ 26a:	20 e0       	ldi	r18, 0x00	; 0
+ 26c:	30 e0       	ldi	r19, 0x00	; 0
+ 26e:	f5 cf       	rjmp	.-22     	; 0x25a <LCD_init+0x1c>
+void LCD_init ( void )
+{
+    
+	delay_ms(100);
+	
+	CLEAR_SCE_PIN;    //Enable LCD
+ 270:	c4 98       	cbi	0x18, 4	; 24
+    
+	CLEAR_RST_PIN;	//reset LCD
+ 272:	c6 98       	cbi	0x18, 6	; 24
+ 274:	40 e0       	ldi	r20, 0x00	; 0
+ 276:	50 e0       	ldi	r21, 0x00	; 0
+ 278:	13 c0       	rjmp	.+38     	; 0x2a0 <LCD_init+0x62>
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+      for(j=0;j<100;j++)
+	  {
+	    asm("nop");
+ 27a:	00 00       	nop
+	    asm("nop");
+ 27c:	00 00       	nop
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+      for(j=0;j<100;j++)
+ 27e:	01 96       	adiw	r24, 0x01	; 1
+ 280:	84 36       	cpi	r24, 0x64	; 100
+ 282:	91 05       	cpc	r25, r1
+ 284:	d1 f7       	brne	.-12     	; 0x27a <LCD_init+0x3c>
+void delay_ms(int miliSec)  //for 8Mhz clock
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+ 286:	2f 5f       	subi	r18, 0xFF	; 255
+ 288:	3f 4f       	sbci	r19, 0xFF	; 255
+ 28a:	28 30       	cpi	r18, 0x08	; 8
+ 28c:	31 05       	cpc	r19, r1
+ 28e:	19 f0       	breq	.+6      	; 0x296 <LCD_init+0x58>
+ 290:	80 e0       	ldi	r24, 0x00	; 0
+ 292:	90 e0       	ldi	r25, 0x00	; 0
+ 294:	f2 cf       	rjmp	.-28     	; 0x27a <LCD_init+0x3c>
+--------------------------------------------------------------------------------------------------*/
+void delay_ms(int miliSec)  //for 8Mhz clock
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+ 296:	4f 5f       	subi	r20, 0xFF	; 255
+ 298:	5f 4f       	sbci	r21, 0xFF	; 255
+ 29a:	44 36       	cpi	r20, 0x64	; 100
+ 29c:	51 05       	cpc	r21, r1
+ 29e:	19 f0       	breq	.+6      	; 0x2a6 <LCD_init+0x68>
+ 2a0:	20 e0       	ldi	r18, 0x00	; 0
+ 2a2:	30 e0       	ldi	r19, 0x00	; 0
+ 2a4:	f5 cf       	rjmp	.-22     	; 0x290 <LCD_init+0x52>
+	
+	CLEAR_SCE_PIN;    //Enable LCD
+    
+	CLEAR_RST_PIN;	//reset LCD
+    delay_ms(100);
+    SET_RST_PIN;
+ 2a6:	c6 9a       	sbi	0x18, 6	; 24
+	
+	SET_SCE_PIN;	//disable LCD
+ 2a8:	c4 9a       	sbi	0x18, 4	; 24
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 2aa:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 2ac:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 2ae:	81 e2       	ldi	r24, 0x21	; 33
+ 2b0:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 2b2:	77 9b       	sbis	0x0e, 7	; 14
+ 2b4:	fe cf       	rjmp	.-4      	; 0x2b2 <LCD_init+0x74>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 2b6:	c4 9a       	sbi	0x18, 4	; 24
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 2b8:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 2ba:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 2bc:	80 ee       	ldi	r24, 0xE0	; 224
+ 2be:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 2c0:	77 9b       	sbis	0x0e, 7	; 14
+ 2c2:	fe cf       	rjmp	.-4      	; 0x2c0 <LCD_init+0x82>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 2c4:	c4 9a       	sbi	0x18, 4	; 24
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 2c6:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 2c8:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 2ca:	84 e0       	ldi	r24, 0x04	; 4
+ 2cc:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 2ce:	77 9b       	sbis	0x0e, 7	; 14
+ 2d0:	fe cf       	rjmp	.-4      	; 0x2ce <LCD_init+0x90>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 2d2:	c4 9a       	sbi	0x18, 4	; 24
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 2d4:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 2d6:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 2d8:	83 e1       	ldi	r24, 0x13	; 19
+ 2da:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 2dc:	77 9b       	sbis	0x0e, 7	; 14
+ 2de:	fe cf       	rjmp	.-4      	; 0x2dc <LCD_init+0x9e>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 2e0:	c4 9a       	sbi	0x18, 4	; 24
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 2e2:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 2e4:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 2e6:	80 e2       	ldi	r24, 0x20	; 32
+ 2e8:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 2ea:	77 9b       	sbis	0x0e, 7	; 14
+ 2ec:	fe cf       	rjmp	.-4      	; 0x2ea <LCD_init+0xac>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 2ee:	c4 9a       	sbi	0x18, 4	; 24
+  Argument(s)  :  command -> command to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeCommand ( unsigned char command )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 2f0:	c4 98       	cbi	0x18, 4	; 24
+	
+	CLEAR_DC_PIN;	  //set LCD in command mode
+ 2f2:	c0 98       	cbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = command;
+ 2f4:	8c e0       	ldi	r24, 0x0C	; 12
+ 2f6:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 2f8:	77 9b       	sbis	0x0e, 7	; 14
+ 2fa:	fe cf       	rjmp	.-4      	; 0x2f8 <LCD_init+0xba>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 2fc:	c4 9a       	sbi	0x18, 4	; 24
+    LCD_writeCommand( 0x04 );  // Set Temp coefficent.
+    LCD_writeCommand( 0x13 );  // LCD bias mode 1:48.
+    LCD_writeCommand( 0x20 );  // LCD Standard Commands, Horizontal addressing mode.
+    LCD_writeCommand( 0x0c );  // LCD in normal mode.
+
+    LCD_clear();
+ 2fe:	0e 94 01 01 	call	0x202	; 0x202 <LCD_clear>
+}
+ 302:	08 95       	ret
+
+00000304 <LCD_writeChar>:
+  Description  :  Displays a character at current cursor location and increment cursor location.
+  Argument(s)  :  ch   -> Character to write.
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeChar (unsigned char ch)
+{
+ 304:	98 2f       	mov	r25, r24
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 306:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 308:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 30a:	1f b8       	out	0x0f, r1	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 30c:	77 9b       	sbis	0x0e, 7	; 14
+ 30e:	fe cf       	rjmp	.-4      	; 0x30c <LCD_writeChar+0x8>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 310:	c4 9a       	sbi	0x18, 4	; 24
+   unsigned char j;
+  
+   LCD_writeData(0x00);
+   
+   for(j=0; j<5; j++)
+     LCD_writeData( smallFont [(ch-32)*5 + j] );
+ 312:	85 e0       	ldi	r24, 0x05	; 5
+ 314:	98 9f       	mul	r25, r24
+ 316:	c0 01       	movw	r24, r0
+ 318:	11 24       	eor	r1, r1
+ 31a:	fc 01       	movw	r30, r24
+ 31c:	e0 54       	subi	r30, 0x40	; 64
+ 31e:	f0 40       	sbci	r31, 0x00	; 0
+{
+   unsigned char j;
+  
+   LCD_writeData(0x00);
+   
+   for(j=0; j<5; j++)
+ 320:	9c 01       	movw	r18, r24
+ 322:	2b 59       	subi	r18, 0x9B	; 155
+ 324:	30 40       	sbci	r19, 0x00	; 0
+ 326:	20 5a       	subi	r18, 0xA0	; 160
+ 328:	3f 4f       	sbci	r19, 0xFF	; 255
+     LCD_writeData( smallFont [(ch-32)*5 + j] );
+ 32a:	80 81       	ld	r24, Z
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 32c:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 32e:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 330:	8f b9       	out	0x0f, r24	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 332:	77 9b       	sbis	0x0e, 7	; 14
+ 334:	fe cf       	rjmp	.-4      	; 0x332 <LCD_writeChar+0x2e>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 336:	c4 9a       	sbi	0x18, 4	; 24
+ 338:	31 96       	adiw	r30, 0x01	; 1
+{
+   unsigned char j;
+  
+   LCD_writeData(0x00);
+   
+   for(j=0; j<5; j++)
+ 33a:	e2 17       	cp	r30, r18
+ 33c:	f3 07       	cpc	r31, r19
+ 33e:	a9 f7       	brne	.-22     	; 0x32a <LCD_writeChar+0x26>
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 340:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 342:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 344:	1f b8       	out	0x0f, r1	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 346:	77 9b       	sbis	0x0e, 7	; 14
+ 348:	fe cf       	rjmp	.-4      	; 0x346 <LCD_writeChar+0x42>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 34a:	c4 9a       	sbi	0x18, 4	; 24
+   
+   for(j=0; j<5; j++)
+     LCD_writeData( smallFont [(ch-32)*5 + j] );
+	 
+   LCD_writeData( 0x00 );
+} 
+ 34c:	08 95       	ret
+
+0000034e <LCD_writeString_F>:
+  Description  :  Displays a string stored in FLASH, in small fonts (refer to 3310_routines.h)
+  Argument(s)  :  string -> Pointer to ASCII string (stored in FLASH)
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeString_F ( unsigned char *string )
+{
+ 34e:	cf 93       	push	r28
+ 350:	df 93       	push	r29
+ 352:	ec 01       	movw	r28, r24
+ 354:	03 c0       	rjmp	.+6      	; 0x35c <LCD_writeString_F+0xe>
+
+    while (*string)
+       LCD_writeChar(*string++);
+ 356:	21 96       	adiw	r28, 0x01	; 1
+ 358:	0e 94 82 01 	call	0x304	; 0x304 <LCD_writeChar>
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeString_F ( unsigned char *string )
+{
+
+    while (*string)
+ 35c:	88 81       	ld	r24, Y
+ 35e:	88 23       	and	r24, r24
+ 360:	d1 f7       	brne	.-12     	; 0x356 <LCD_writeString_F+0x8>
+       LCD_writeChar(*string++);
+}
+ 362:	df 91       	pop	r29
+ 364:	cf 91       	pop	r28
+ 366:	08 95       	ret
+
+00000368 <delay_ms>:
+  Description  :  1 millisec delay (appx.)
+  Argument(s)  :  None.
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void delay_ms(int miliSec)  //for 8Mhz clock
+{
+ 368:	60 e0       	ldi	r22, 0x00	; 0
+ 36a:	70 e0       	ldi	r23, 0x00	; 0
+ 36c:	11 c0       	rjmp	.+34     	; 0x390 <delay_ms+0x28>
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+      for(j=0;j<100;j++)
+	  {
+	    asm("nop");
+ 36e:	00 00       	nop
+	    asm("nop");
+ 370:	00 00       	nop
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+      for(j=0;j<100;j++)
+ 372:	2f 5f       	subi	r18, 0xFF	; 255
+ 374:	3f 4f       	sbci	r19, 0xFF	; 255
+ 376:	24 36       	cpi	r18, 0x64	; 100
+ 378:	31 05       	cpc	r19, r1
+ 37a:	c9 f7       	brne	.-14     	; 0x36e <delay_ms+0x6>
+void delay_ms(int miliSec)  //for 8Mhz clock
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+    for (k=0; k < 8; k++)
+ 37c:	4f 5f       	subi	r20, 0xFF	; 255
+ 37e:	5f 4f       	sbci	r21, 0xFF	; 255
+ 380:	48 30       	cpi	r20, 0x08	; 8
+ 382:	51 05       	cpc	r21, r1
+ 384:	19 f0       	breq	.+6      	; 0x38c <delay_ms+0x24>
+ 386:	20 e0       	ldi	r18, 0x00	; 0
+ 388:	30 e0       	ldi	r19, 0x00	; 0
+ 38a:	f1 cf       	rjmp	.-30     	; 0x36e <delay_ms+0x6>
+--------------------------------------------------------------------------------------------------*/
+void delay_ms(int miliSec)  //for 8Mhz clock
+{
+  int i,j,k;
+  
+  for(i=0;i<miliSec;i++)
+ 38c:	6f 5f       	subi	r22, 0xFF	; 255
+ 38e:	7f 4f       	sbci	r23, 0xFF	; 255
+ 390:	68 17       	cp	r22, r24
+ 392:	79 07       	cpc	r23, r25
+ 394:	1c f4       	brge	.+6      	; 0x39c <delay_ms+0x34>
+ 396:	40 e0       	ldi	r20, 0x00	; 0
+ 398:	50 e0       	ldi	r21, 0x00	; 0
+ 39a:	f5 cf       	rjmp	.-22     	; 0x386 <delay_ms+0x1e>
+ 39c:	08 95       	ret
+
+0000039e <LCD_drawBorder>:
+  Description  :  Draws rectangle border on the display
+  Argument(s)  :  None
+  Return value :  None
+--------------------------------------------------------------------------------------------------*/
+void LCD_drawBorder (void )
+{
+ 39e:	ef 92       	push	r14
+ 3a0:	ff 92       	push	r15
+ 3a2:	0f 93       	push	r16
+ 3a4:	1f 93       	push	r17
+ 3a6:	10 e0       	ldi	r17, 0x00	; 0
+    CLEAR_SCE_PIN;	  //enable LCD
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 3a8:	ee 24       	eor	r14, r14
+ 3aa:	ea 94       	dec	r14
+{
+  unsigned char i, j;  
+    
+  for(i=0; i<7; i++)
+  {
+    LCD_gotoXY (0,i);
+ 3ac:	84 e0       	ldi	r24, 0x04	; 4
+ 3ae:	f8 2e       	mov	r15, r24
+ 3b0:	08 e0       	ldi	r16, 0x08	; 8
+ 3b2:	80 e0       	ldi	r24, 0x00	; 0
+ 3b4:	61 2f       	mov	r22, r17
+ 3b6:	0e 94 f2 00 	call	0x1e4	; 0x1e4 <LCD_gotoXY>
+ 3ba:	80 e0       	ldi	r24, 0x00	; 0
+	
+	for(j=0; j<84; j++)
+	{
+	  if(j == 0 || j == 83)
+ 3bc:	88 23       	and	r24, r24
+ 3be:	11 f0       	breq	.+4      	; 0x3c4 <LCD_drawBorder+0x26>
+ 3c0:	83 35       	cpi	r24, 0x53	; 83
+ 3c2:	31 f4       	brne	.+12     	; 0x3d0 <LCD_drawBorder+0x32>
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 3c4:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 3c6:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 3c8:	ef b8       	out	0x0f, r14	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 3ca:	77 9b       	sbis	0x0e, 7	; 14
+ 3cc:	fe cf       	rjmp	.-4      	; 0x3ca <LCD_drawBorder+0x2c>
+ 3ce:	15 c0       	rjmp	.+42     	; 0x3fa <LCD_drawBorder+0x5c>
+	
+	for(j=0; j<84; j++)
+	{
+	  if(j == 0 || j == 83)
+		LCD_writeData (0xff);		// first and last column solid fill to make line
+	  else if(i == 0)
+ 3d0:	11 23       	and	r17, r17
+ 3d2:	31 f4       	brne	.+12     	; 0x3e0 <LCD_drawBorder+0x42>
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 3d4:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 3d6:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 3d8:	0f b9       	out	0x0f, r16	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 3da:	77 9b       	sbis	0x0e, 7	; 14
+ 3dc:	fe cf       	rjmp	.-4      	; 0x3da <LCD_drawBorder+0x3c>
+ 3de:	0d c0       	rjmp	.+26     	; 0x3fa <LCD_drawBorder+0x5c>
+	{
+	  if(j == 0 || j == 83)
+		LCD_writeData (0xff);		// first and last column solid fill to make line
+	  else if(i == 0)
+	    LCD_writeData (0x08);		// row 0 is having only 5 bits (not 8)
+	  else if(i == 6)
+ 3e0:	16 30       	cpi	r17, 0x06	; 6
+ 3e2:	31 f4       	brne	.+12     	; 0x3f0 <LCD_drawBorder+0x52>
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 3e4:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 3e6:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 3e8:	ff b8       	out	0x0f, r15	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 3ea:	77 9b       	sbis	0x0e, 7	; 14
+ 3ec:	fe cf       	rjmp	.-4      	; 0x3ea <LCD_drawBorder+0x4c>
+ 3ee:	05 c0       	rjmp	.+10     	; 0x3fa <LCD_drawBorder+0x5c>
+  Argument(s)  :  Data -> Data to be sent
+  Return value :  None.
+--------------------------------------------------------------------------------------------------*/
+void LCD_writeData ( unsigned char Data )
+{
+    CLEAR_SCE_PIN;	  //enable LCD
+ 3f0:	c4 98       	cbi	0x18, 4	; 24
+	
+	SET_DC_PIN;	  //set LCD in Data mode
+ 3f2:	c0 9a       	sbi	0x18, 0	; 24
+	
+    //  Send data to display controller.
+    SPDR = Data;
+ 3f4:	1f b8       	out	0x0f, r1	; 15
+
+    //  Wait until Tx register empty.
+    while ( !(SPSR & 0x80) );
+ 3f6:	77 9b       	sbis	0x0e, 7	; 14
+ 3f8:	fe cf       	rjmp	.-4      	; 0x3f6 <LCD_drawBorder+0x58>
+
+    SET_SCE_PIN;   	 //disable LCD
+ 3fa:	c4 9a       	sbi	0x18, 4	; 24
+    
+  for(i=0; i<7; i++)
+  {
+    LCD_gotoXY (0,i);
+	
+	for(j=0; j<84; j++)
+ 3fc:	8f 5f       	subi	r24, 0xFF	; 255
+ 3fe:	84 35       	cpi	r24, 0x54	; 84
+ 400:	e9 f6       	brne	.-70     	; 0x3bc <LCD_drawBorder+0x1e>
+--------------------------------------------------------------------------------------------------*/
+void LCD_drawBorder (void )
+{
+  unsigned char i, j;  
+    
+  for(i=0; i<7; i++)
+ 402:	1f 5f       	subi	r17, 0xFF	; 255
+ 404:	17 30       	cpi	r17, 0x07	; 7
+ 406:	a9 f6       	brne	.-86     	; 0x3b2 <LCD_drawBorder+0x14>
+	    LCD_writeData (0x04);		// row 6 is having only 3 bits (not 8)
+	  else
+	    LCD_writeData (0x00);
+	}
+  }
+}	
+ 408:	1f 91       	pop	r17
+ 40a:	0f 91       	pop	r16
+ 40c:	ff 90       	pop	r15
+ 40e:	ef 90       	pop	r14
+ 410:	08 95       	ret
+
+00000412 <UART_init>:
+
+void UART_init (void)
+{
+	/* Set Baudrate to 9600 for an 8 Mhz clock */
+	/* Refer to Page 169-172 in ATmega16 Databook */
+	UBRRH = UBRR_INIT >> 8;
+ 412:	10 bc       	out	0x20, r1	; 32
+	UBRRL = UBRR_INIT & 0xFF;
+ 414:	83 e3       	ldi	r24, 0x33	; 51
+ 416:	89 b9       	out	0x09, r24	; 9
+	//UBRRL = UBRR_INIT;
+	//UBRRH = UBRR_INIT & 0xF0;
+
+	/* Enable receiver and transmitter */
+	/* Page 166 */
+    UCSRA = UCSRA_INIT;
+ 418:	1b b8       	out	0x0b, r1	; 11
+    UCSRB = UCSRB_INIT;
+ 41a:	88 e1       	ldi	r24, 0x18	; 24
+ 41c:	8a b9       	out	0x0a, r24	; 10
+    UCSRC = UCSRC_INIT;
+ 41e:	86 e8       	ldi	r24, 0x86	; 134
+ 420:	80 bd       	out	0x20, r24	; 32
+}
+ 422:	08 95       	ret
+
+00000424 <UART_transmit>:
+
+/*******************************************************************/
+
+void UART_transmit (unsigned char data)
+{
+	while (!(UCSRA & (1<<UDRE)));
+ 424:	5d 9b       	sbis	0x0b, 5	; 11
+ 426:	fe cf       	rjmp	.-4      	; 0x424 <UART_transmit>
+	UDR = data;
+ 428:	8c b9       	out	0x0c, r24	; 12
+}
+ 42a:	08 95       	ret
+
+0000042c <UART_receive>:
+
+/*******************************************************************/
+
+unsigned char UART_receive (void)
+{
+	while (!(UCSRA & (1<<RXC)));
+ 42c:	5f 9b       	sbis	0x0b, 7	; 11
+ 42e:	fe cf       	rjmp	.-4      	; 0x42c <UART_receive>
+	return (UDR);
+ 430:	8c b1       	in	r24, 0x0c	; 12
+}
+ 432:	08 95       	ret
+
+00000434 <_exit>:
+ 434:	f8 94       	cli
+
+00000436 <__stop_program>:
+ 436:	ff cf       	rjmp	.-2      	; 0x436 <__stop_program>
