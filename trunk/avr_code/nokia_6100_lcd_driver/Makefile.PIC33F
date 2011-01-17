@@ -1,0 +1,34 @@
+SUPPORT = nokialcd_driver.o nokialcd_scroll.o nokialcd_font.o sysconfig-pic33f.o
+
+CC = wine pic30-gcc
+BIN2HEX = wine pic30-bin2hex
+PK2CMD = pk2cmd -M -PF6 -W -R
+
+MCU = 33FJ128GP802
+LCDTYPE = -DEPSON
+C30LIB="C:\Program Files\Microchip\MPLAB C30\lib"
+CFLAGS  = -mcpu=$(MCU) -x c -Wall -Os -std=gnu99 $(LCDTYPE)
+LDFLAGS = -mcpu=$(MCU) -Wl,-L$(C30LIB),-Tp$(MCU).gld
+
+all: demo_testpattern.hex demo_globe.hex demo_scroll.hex
+
+flash-testpattern: demo_testpattern.hex
+	$(PK2CMD) -F$<
+
+flash-globe: demo_globe.hex
+	$(PK2CMD) -F$<
+
+flash-scroll: demo_scroll.hex
+	$(PK2CMD) -F$<
+
+clean:
+	rm -f *.o *.cof *.elf *.hex *.bin *.srec
+
+%.hex: %.cof
+	$(BIN2HEX) $<
+
+%.cof: %.o $(SUPPORT)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
