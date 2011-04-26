@@ -40,15 +40,30 @@ for rss_feed in rss_feeds:
     while (index < num_stories):
         print source[rss_index] + ": " + d['items'][index].title
         output = source[rss_index] + ": " + d['items'][index].title
-        out_index = 0
-        for a_byte in output:
-            out_index = out_index + 1
-            if out_index == len(output):
-               ser.write(chr(ord(a_byte))) 
-               print "ENDLINE"
-               time.sleep(3)
+        output_list = output.split(' ')
+        print output_list
+        row = 0
+        for word in output_list:
+            print word
+            column = 1
+            ser.write(chr(0x20))  # space character
+            if (len(word) < (14 - column)):
+                for a_byte in word:
+                    ser.write(chr(ord(a_byte)))
+                    column = column + 1
+                    print str(a_byte)
             else:
-               ser.write(chr(ord(a_byte)))
+                ser.write(chr(0xAA))  # send flag to go to the next line
+                row = row + 1                
+                if (row == 6):
+                    time.sleep(3)
+                    break
+                column = 0
+                for a_byte in word:
+                    ser.write(chr(ord(a_byte)))
+                    column = column + 1
+        ser.write(chr(0xAB))  # send flag for end of story
+        time.sleep(3)
         index = index + 1
     rss_index = rss_index + 1
 

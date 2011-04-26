@@ -26,8 +26,10 @@ static unsigned char __attribute__ ((progmem)) logo16_glcd_bmp[]={
 #define LOGO16_GLCD_WIDTH  16 
 
 char message[] = "12345678901234567890";
+int x_val = 0;
+int line_val = 0;
 
-
+unsigned char the_character;
 
 void setup(void) {
   
@@ -53,13 +55,22 @@ void setup(void) {
   nokia.display();
   delay(50);
   nokia.clear();
+  
+  x_val = 0;
+  line_val = 0;
 //
 //  // draw a single pixel
 //  nokia.setPixel(10, 10, BLACK);
-  nokia.drawstring(0,0,message);
-  nokia.display();        // show the changes to the buffer
-  delay(2000);
-  nokia.clear();
+  //nokia.drawstring(0,0,message);
+//  x_val = 0;
+//  if (Serial.available() > 0) {
+//    the_character = Serial.read();
+//    drawchar(
+//    
+//  }
+//  nokia.display();        // show the changes to the buffer
+//  delay(2000);
+//  nokia.clear();
 // 
 //   // draw many lines
 //  testdrawline();
@@ -100,7 +111,38 @@ void setup(void) {
 //  testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
 }
 
-void loop(void) {}
+void loop(void) {
+
+  if (Serial.available() > 0) {
+    the_character = Serial.read();
+    if (the_character == 0xAA) {
+      line_val = line_val + 1;
+      x_val = 0;
+    } else if (the_character == 0xAB) {
+      nokia.display();        // show the changes to the buffer
+      delay(2000);
+      nokia.clear();
+      line_val = 0; 
+      x_val = 0;   
+    }
+    if (line_val > 6) {
+      nokia.display();        // show the changes to the buffer
+      delay(2000);
+      nokia.clear();      
+      line_val = 0;
+      x_val = 0;
+    }
+    if (((the_character != 0xAB) || (the_character != 0xAA)) && (line_val < 6)) {    
+      nokia.drawchar(x_val, line_val, the_character);
+      //nokia.display();
+      x_val = x_val + 8;
+    }
+  }
+//  nokia.display();        // show the changes to the buffer
+//  delay(2000);
+//  nokia.clear();
+
+}
 
 #define NUMFLAKES 8
 #define XPOS 0
