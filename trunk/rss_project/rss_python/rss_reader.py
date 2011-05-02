@@ -41,19 +41,25 @@ for rss_feed in rss_feeds:
         print source[rss_index] + ": " + d['items'][index].title
         output = source[rss_index] + ": " + d['items'][index].title
         output_list = output.split(' ')
-        print output_list
+        # print output_list
         row = 0
+        column = 0
         for word in output_list:
             print word
-            column = 1
-            ser.write(chr(0x20))  # space character
+            #column = 1
+            if (column != 0):
+                ser.write(chr(0x20))  # space character
+                column = column + 1
             if (len(word) < (14 - column)):
                 for a_byte in word:
                     ser.write(chr(ord(a_byte)))
                     column = column + 1
                     print str(a_byte)
+                ser.write(chr(0x20))
+                column = column + 1
             else:
                 ser.write(chr(0xAA))  # send flag to go to the next line
+                print "NEWLINE"
                 row = row + 1                
                 if (row == 6):
                     time.sleep(3)
@@ -62,8 +68,12 @@ for rss_feed in rss_feeds:
                 for a_byte in word:
                     ser.write(chr(ord(a_byte)))
                     column = column + 1
+                    print str(a_byte)
+                ser.write(chr(0x20))
+                column = column + 1
+        print "END OF STORY"
         ser.write(chr(0xAB))  # send flag for end of story
-        time.sleep(3)
+        time.sleep(10)
         index = index + 1
     rss_index = rss_index + 1
 

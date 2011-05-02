@@ -55,9 +55,16 @@ void setup(void) {
   nokia.display();
   delay(50);
   nokia.clear();
+  nokia.drawstring(0,0,message);
+  nokia.drawchar(0, 2, 0x42);
+  nokia.drawchar(6, 2, 0x43);
+  nokia.drawchar(12, 2, 0x44);
+  nokia.drawchar(18, 2, 0x45);  
+  nokia.display();  
   
   x_val = 0;
   line_val = 0;
+  Serial.flush();
 //
 //  // draw a single pixel
 //  nokia.setPixel(10, 10, BLACK);
@@ -116,18 +123,20 @@ void loop(void) {
   if (Serial.available() > 0) {
     the_character = Serial.read();
     if (the_character == 0xAA) {
+      Serial.flush();
       line_val = line_val + 1;
       x_val = 0;
     } else if (the_character == 0xAB) {
+      Serial.flush();
       nokia.display();        // show the changes to the buffer
-      delay(2000);
+      delay(5000);
       nokia.clear();
       line_val = 0; 
       x_val = 0;   
     }
     if (line_val > 6) {
       nokia.display();        // show the changes to the buffer
-      delay(2000);
+      delay(5000);
       nokia.clear();      
       line_val = 0;
       x_val = 0;
@@ -135,7 +144,7 @@ void loop(void) {
     if (((the_character != 0xAB) || (the_character != 0xAA)) && (line_val < 6)) {    
       nokia.drawchar(x_val, line_val, the_character);
       //nokia.display();
-      x_val = x_val + 8;
+      x_val = x_val + 6;
     }
   }
 //  nokia.display();        // show the changes to the buffer
